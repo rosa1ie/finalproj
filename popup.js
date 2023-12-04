@@ -21,8 +21,8 @@
         var clientId = '1097249097872208';
         var redirectUri = 'https://ggehpmlgjdappfdakaefjcjmcdhleedk.chromiumapp.org/';
 
-        var authUrl = `https://www.facebook.com/v18.0/dialog/oauth?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=email,user_likes&auth_type=reauthenticate`;
-
+        var authUrl = `https://www.facebook.com/v18.0/dialog/oauth?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=email,user_likes,user_birthday,user_gender,user_hometown,user_location,ads_management&auth_type=reauthenticate`;
+        
         chrome.identity.launchWebAuthFlow({
             url: authUrl,
             interactive: true
@@ -59,7 +59,7 @@
     function fetchUserData(token) {
         var xhr = new XMLHttpRequest();
         // Include 'likes' in the fields parameter
-        xhr.open('GET', 'https://graph.facebook.com/me?fields=id,name,email,likes.limit(1).summary(true)&access_token=' + token);
+        xhr.open('GET', 'https://graph.facebook.com/me?fields=id,name,email,birthday,gender,hometown,location,likes.limit(1).summary(true)&access_token=' + token);
         xhr.onload = function() {
             if (xhr.status === 200) {
                 var userData = JSON.parse(xhr.responseText);
@@ -75,18 +75,25 @@
         var displayArea = document.getElementById('user-data');
 
         // Extracting user details
-        var userId = data.id;
-        var userName = data.name;
-        var userEmail = data.email;
-        var userLikesCount = data.likes.summary.total_count;
+        var userName = data.name ? data.name : 'Not Collected';
+        var userEmail = data.email ? data.email : 'Not Collected';
+        var userLikesCount = data.likes.summary.total_count ? data.likes.summary.total_count : 'Not Collected';
+        var userBirthday = data.birthday ? data.birthday : 'Not Collected';
+        var userGender = data.gender ? data.gender : 'Not Collected';
+        var userHometown = data.hometown ? data.hometown.name : 'Not Collected';
+        var userLocation = data.location ? data.location.name : 'Not Collected';
 
         // Creating a neat display
         var displayContent = `
             <h3>Information Collected by Meta</h3>
-            <p><strong>ID:</strong> ${userId}</p>
             <p><strong>Name:</strong> ${userName}</p>
             <p><strong>Email:</strong> ${userEmail}</p>
             <p><strong>Number of Likes:</strong> ${userLikesCount}</p>
+            <p><strong>Birthday:</strong> ${userBirthday}</p>
+            <p><strong>Gender:</strong> ${userGender}</p>
+            <p><strong>Hometown:</strong> ${userHometown}</p>
+            <p><strong>Current Location:</strong> ${userLocation}</p>
+            <p><strong>Number of Facebook Pages liked Likes:</strong> ${data.likes.summary.total_count}</p>
         `;
 
         // Setting the innerHTML of the display area
