@@ -59,7 +59,7 @@
     function fetchUserData(token) {
         var xhr = new XMLHttpRequest();
         // Include 'likes' in the fields parameter
-        xhr.open('GET', 'https://graph.facebook.com/me?fields=id,name,email,birthday,gender,hometown,location,likes.limit(1).summary(true)&access_token=' + token);
+        xhr.open('GET', 'https://graph.facebook.com/me?fields=id,name,email,birthday,gender,hometown,location,likes.limit(1).summary(true),age_range&access_token=' + token);
         xhr.onload = function() {
             if (xhr.status === 200) {
                 var userData = JSON.parse(xhr.responseText);
@@ -82,18 +82,19 @@
         var userGender = data.gender ? data.gender : 'Not Collected';
         var userHometown = data.hometown ? data.hometown.name : 'Not Collected';
         var userLocation = data.location ? data.location.name : 'Not Collected';
+        var userAgeRange = data.age_range ? `${data.age_range.min} - ${data.age_range.max}` : 'Not Collected';
 
         // Creating a neat display
         var displayContent = `
             <h3>Information Collected by Meta</h3>
             <p><strong>Name:</strong> ${userName}</p>
             <p><strong>Email:</strong> ${userEmail}</p>
-            <p><strong>Number of Likes:</strong> ${userLikesCount}</p>
+            <p><strong>Age Range:</strong> ${userAgeRange}</p>
             <p><strong>Birthday:</strong> ${userBirthday}</p>
             <p><strong>Gender:</strong> ${userGender}</p>
             <p><strong>Hometown:</strong> ${userHometown}</p>
             <p><strong>Current Location:</strong> ${userLocation}</p>
-            <p><strong>Number of Facebook Pages liked Likes:</strong> ${data.likes.summary.total_count}</p>
+            <p><strong>Number of Facebook Pages liked:</strong> ${data.likes.summary.total_count}</p>
         `;
 
         // Setting the innerHTML of the display area
