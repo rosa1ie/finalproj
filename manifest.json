@@ -11,6 +11,9 @@
         "activeTab",
         "identity"
     ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
     "background": {
         "service_worker": "background.js"
     },
@@ -20,5 +23,16 @@
     },
     "icons": {
         "128": "icon.jpg"
-    }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://stackoverflow.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_start"
+        }
+    ]
 }
