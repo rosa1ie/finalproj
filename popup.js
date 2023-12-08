@@ -16,10 +16,9 @@
         });
     });
 
-
     function loginWithFacebook() {
         var clientId = '1097249097872208';
-        var redirectUri = 'https://ggehpmlgjdappfdakaefjcjmcdhleedk.chromiumapp.org/';
+        var redirectUri = 'https://ggehpmlgjdappfdakaefjcjmcdhleedk.chromiumapp.org/';  
 
         var authUrl = `https://www.facebook.com/v18.0/dialog/oauth?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=email,user_likes,user_birthday,user_gender,user_hometown,user_location,ads_management&auth_type=reauthenticate`;
         
@@ -59,7 +58,7 @@
     function fetchUserData(token) {
         var xhr = new XMLHttpRequest();
         // Include 'likes' in the fields parameter
-        xhr.open('GET', 'https://graph.facebook.com/me?fields=id,name,email,birthday,gender,hometown,location,likes.limit(1).summary(true),age_range&access_token=' + token);
+        xhr.open('GET', 'https://graph.facebook.com/me?fields=id,name,email,birthday,gender,hometown,location,likes.limit(1).summary(true),age_range,installed&access_token=' + token);
         xhr.onload = function() {
             if (xhr.status === 200) {
                 var userData = JSON.parse(xhr.responseText);
@@ -83,10 +82,13 @@
         var userHometown = data.hometown ? data.hometown.name : 'Not Collected';
         var userLocation = data.location ? data.location.name : 'Not Collected';
         var userAgeRange = data.age_range ? `${data.age_range.min} - ${data.age_range.max}` : 'Not Collected';
+        var isInstalled = data.installed ? 'Yes' : 'No';
+
 
         // Creating a neat display
         var displayContent = `
             <h3>Information Collected by Meta</h3>
+            <p><strong>App Installed:</strong> ${isInstalled}</p>
             <p><strong>Name:</strong> ${userName}</p>
             <p><strong>Email:</strong> ${userEmail}</p>
             <p><strong>Age Range:</strong> ${userAgeRange}</p>
@@ -94,7 +96,7 @@
             <p><strong>Gender:</strong> ${userGender}</p>
             <p><strong>Hometown:</strong> ${userHometown}</p>
             <p><strong>Current Location:</strong> ${userLocation}</p>
-            <p><strong>Number of Facebook Pages liked:</strong> ${data.likes.summary.total_count}</p>
+            <p><strong>Number of Facebook Pages liked:</strong> ${userLikesCount}</p>
         `;
 
         // Setting the innerHTML of the display area
