@@ -1,4 +1,15 @@
 #login-btn {
     min-width: 100px;
     min-height: 30px;
+    align-items: center;
 }
+
+body {
+    width: 300px;
+    background-color: #3D3D3D; 
+    color: #FFFFFF;
+}
+
+
+
+  

@@ -15,7 +15,7 @@
         "service_worker": "background.js"
     },
     "action": {
-        "default_popup": "popup.html",
+        "default_popup": "popup1.html",
         "default_icon": "icon.jpg"
     },
     "icons": {

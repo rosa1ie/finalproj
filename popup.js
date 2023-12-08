@@ -19,7 +19,7 @@
 
     function loginWithFacebook() {
         var clientId = '1097249097872208';
-        var redirectUri = 'https://ggehpmlgjdappfdakaefjcjmcdhleedk.chromiumapp.org/';
+        var redirectUri = 'https://cpgpiohpmfalbmgpakhdiffcjflmmclk.chromiumapp.org/';
 
         var authUrl = `https://www.facebook.com/v18.0/dialog/oauth?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=email,user_likes,user_birthday,user_gender,user_hometown,user_location,ads_management&auth_type=reauthenticate`;
         
@@ -87,6 +87,8 @@
         // Creating a neat display
         var displayContent = `
             <h3>Information Collected by Meta</h3>
+            <h3>Accessible Data</h3>
+            <hr>
             <p><strong>Name:</strong> ${userName}</p>
             <p><strong>Email:</strong> ${userEmail}</p>
             <p><strong>Age Range:</strong> ${userAgeRange}</p>
@@ -94,10 +96,31 @@
             <p><strong>Gender:</strong> ${userGender}</p>
             <p><strong>Hometown:</strong> ${userHometown}</p>
             <p><strong>Current Location:</strong> ${userLocation}</p>
-            <p><strong>Number of Facebook Pages liked:</strong> ${data.likes.summary.total_count}</p>
+            <p><strong>Number of Facebook Pages liked:</strong> ${data.likes.summary.total_count}</p><br>
+            <h3>Not accessible but being collected</h3>
+            <hr>
+            <p><strong>Credit card numbers</p>
+            <p><strong>Content of messages</p>
+            <p><strong>Health-related information</p>
+            <p><strong>Data from voice commands</p>
+            <p><strong>Facial recognition data</p>
+            <p><strong>Interactions with websites</p>
+
         `;
 
         // Setting the innerHTML of the display area
         displayArea.innerHTML = displayContent;
     }
 
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('switchToContent2').addEventListener('click', function() {
+      document.getElementById('content1').style.display = 'none';
+      document.getElementById('content2').style.display = 'block';
+    });
+  
+    document.getElementById('switchToContent1').addEventListener('click', function() {
+      document.getElementById('content2').style.display = 'none';
+      document.getElementById('content1').style.display = 'block';
+    });
+  });
+  
