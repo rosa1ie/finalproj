@@ -3,20 +3,32 @@
         <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://connect.facebook.net; object-src 'none';">
         <title>Privacy Detector</title>
         <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <!-- <link rel="stylesheet" type="text/css" href="css/popup.css"> -->
     </head>
 
     <body>
-        <div class="container">
+        <div id="content1">
             <div class="header">
                 <h1>Privacy Detector</h1>
             </div>
+            
             <!-- <div class="content">
                 <p>Privacy Detector is a Chrome extension that detects privacy policies on websites and displays them to the user.</p>
                 <p>Privacy Detector is currently in development. Check back soon for updates!</p>
             </div> -->
-            <button id="login-btn">Log In</button>
+            <button id="login-btn" style="align-items: center;">Log In</button>          
             <div id="user-data"></div>
             <script src="popup.js"></script>
+            <div style="text-align: center;">
+            <button id="switchToContent2">next page</button>
+            </div>
+        </div>
+        <div id="content2" style="display:none;">
+          <div class="header">
+              <h1>Privacy Detector</h1>
+          </div>
+          <button id="switchToContent1">previous page</button>
+          <script src="popup.js"></script>
         </div>
 </html>
