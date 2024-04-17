@@ -44,10 +44,11 @@ function logout() {
     localStorage.removeItem('accessToken');
     document.getElementById('user-data').innerHTML = '';
     document.getElementById('login-btn').textContent = 'Log In';
-
+    
     // Redirect to Facebook logout URL
     var logoutUrl = `https://www.facebook.com/logout.php?next=${encodeURIComponent(window.location.href)}&access_token=${localStorage.getItem('accessToken')}`;
     window.location.href = logoutUrl;
+    
 }
 
 function extractToken(url) {
